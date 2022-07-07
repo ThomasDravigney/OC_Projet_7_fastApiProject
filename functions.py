@@ -22,7 +22,7 @@ def get_scaled_features(X):
 
 
 def get_predictions(model, X_scaled):
-    return model.predict(X_scaled)
+    return model.predict(X_scaled), model.predict_proba(X_scaled)
 
 
 def get_shap_explainer(model, X_scaled):

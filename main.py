@@ -8,9 +8,10 @@ app = FastAPI()
 model = load_model()
 X = get_features()
 X_scaled = get_scaled_features(X)
-y = get_predictions(model, X_scaled)
+y, y_proba = get_predictions(model, X_scaled)
 
 data = X.copy()
+data['TARGET_PROBA'] = y_proba
 data['TARGET'] = y
 
 explainer = get_shap_explainer(model, X_scaled)
