@@ -1,4 +1,3 @@
-import re
 import pickle
 import numpy as np
 import pandas as pd
@@ -11,7 +10,7 @@ def load_model():
 
 
 def get_features():
-    X = pd.read_parquet('test_data.parquet')
+    X = pd.read_parquet('test_data_sample.parquet')
     X.drop('TARGET', axis=1, inplace=True)
     X.replace([np.inf, -np.inf], np.nan, inplace=True)
     X.fillna(0, inplace=True)
