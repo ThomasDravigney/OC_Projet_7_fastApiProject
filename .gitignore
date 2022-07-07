@@ -1,4 +1,2 @@
 /data.parquet
-/feature_description.csv
-/model.pickle
 /test_main.http
