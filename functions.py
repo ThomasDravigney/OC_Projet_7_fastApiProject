@@ -11,14 +11,10 @@ def load_model():
 
 
 def get_features():
-    X = pd.read_parquet('data.parquet')
-    X = X.rename(columns=lambda x: re.sub('[^A-Za-z0-9_]+', '', x))
-    X = X[X.TARGET.isna()]  # get rid of train data
+    X = pd.read_parquet('test_data.parquet')
     X.drop('TARGET', axis=1, inplace=True)
     X.replace([np.inf, -np.inf], np.nan, inplace=True)
     X.fillna(0, inplace=True)
-    X.index = X['SK_ID_CURR']
-    X.drop('SK_ID_CURR', axis=1, inplace=True)
     return X
 
 
