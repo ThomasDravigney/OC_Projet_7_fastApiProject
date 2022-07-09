@@ -47,6 +47,7 @@ def get_feature_importance(explainer, X_scaled, SK_ID_CURR, feature_description)
     shap_values = explainer.shap_values(X_scaled.loc[SK_ID_CURR])
     feature_importance = pd.DataFrame({'feature_name': X_scaled.columns, 'feature_importance': shap_values})
     feature_importance['feature_description'] = feature_importance['feature_name'].apply(match_feature_names, feature_description=feature_description)
+    feature_importance.index = feature_importance['feature_name']
+    feature_importance.drop('feature_name', axis=1, inplace=True)
     feature_importance.sort_values(by='feature_importance', ascending=False, key=abs, inplace=True)
     return feature_importance
-
