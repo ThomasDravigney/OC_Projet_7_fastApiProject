@@ -24,7 +24,7 @@ async def root():
 
 
 @app.get("/id")
-async def get_SK_ID_CURR():
+async def get_all_id():
     """
     :return: List of all SK_ID_CURR (ID of loan in our sample) contained in our data.
     """
@@ -32,25 +32,29 @@ async def get_SK_ID_CURR():
 
 
 @app.get("/data")
-async def get_data():
+async def get_all_data():
+    """
+    :return: 795 features used for prediction and the predicted variable 'TARGET': {0: 'Good client', 1: 'Bad client'} \
+    for all loans.
+    """
     return data.to_json()
 
 
 @app.get("/data/{SK_ID_CURR}")
-async def get_client_data(SK_ID_CURR: int):
+async def get_data_from_id(SK_ID_CURR: int):
     """
     :param SK_ID_CURR: ID of loan in our sample.
-    :return: 795 features used for prediction and the predicted variable 'TARGET': {0: 'Good client', 1: 'Bad client'}.
+    :return: 795 features used for prediction and the predicted variable 'TARGET': {0: 'Good client', 1: 'Bad client'} \
+    for a specific loan.
     """
     return data.loc[SK_ID_CURR].to_json()
 
 
 @app.get("/metadata/{SK_ID_CURR}")
-async def get_client_metadata(SK_ID_CURR: int):
+async def get_metadata_from_id(SK_ID_CURR: int):
     """
     :param SK_ID_CURR: ID of loan in our sample.
     :return: For a specific individual, returns Shapley value and description for each of the 795 features used \
     for prediction.
     """
     return get_feature_importance(explainer, X_scaled, SK_ID_CURR, feature_description).to_json()
-
