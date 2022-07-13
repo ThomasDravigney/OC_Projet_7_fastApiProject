@@ -58,3 +58,21 @@ async def get_metadata_from_id(SK_ID_CURR: int):
     for prediction.
     """
     return get_feature_importance(explainer, X_scaled, SK_ID_CURR, feature_description).to_json()
+
+
+@app.get("/target/{SK_ID_CURR}")
+async def get_target_from_id(SK_ID_CURR: int):
+    """
+    :param SK_ID_CURR: ID of loan in our sample.
+    :return: variable 'TARGET': {0: 'Good client', 1: 'Bad client'} for a specific loan.
+    """
+    return data.loc[SK_ID_CURR][['TARGET']].to_json()
+
+
+@app.get("/target_proba/{SK_ID_CURR}")
+async def get_target_proba_from_id(SK_ID_CURR: int):
+    """
+    :param SK_ID_CURR: ID of loan in our sample.
+    :return: variable 'TARGET_PROBA': probability of gain for a specific loan.
+    """
+    return data.loc[SK_ID_CURR][['TARGET_PROBA']].to_json()
